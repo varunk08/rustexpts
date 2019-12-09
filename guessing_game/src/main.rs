@@ -9,7 +9,7 @@ fn main() {
 
     // Generate random number
     let secret_number = rand::thread_rng().gen_range(1, 101);
-    println!("Secret number: {}", secret_number);
+    // println!("Secret number: {}", secret_number);
 
     loop {
 	// Get user guess
@@ -19,8 +19,10 @@ fn main() {
             .expect("Failed to read line");
 
 	// Shadow the "guess" variable into a different type.
-	let guess: u32 = guess.trim().parse()
-	    .expect("Please type a number!");
+	let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
 	println!("You guessed: {}", guess);
 
 	// Check user guess with generated random number
